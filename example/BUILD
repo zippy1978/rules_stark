@@ -1,5 +1,5 @@
 load(
-    "@rules_stark//:defs.bzl",
+    "@rules_stark//stark:defs.bzl",
     "stark_binary",
     "stark_module",
     "stark_test",

@@ -3,7 +3,7 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 load(
-    "//internal:repo.bzl",
+    "//stark/internal:repo.bzl",
     _stark_download = "stark_download",
 )
 stark_download = _stark_download

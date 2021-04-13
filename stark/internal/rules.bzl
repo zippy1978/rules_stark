@@ -4,7 +4,7 @@ load(":providers.bzl", "StarkModuleInfo")
 
 def _stark_module_impl(ctx):
     # Load the toolchain.
-    stark_toolchain = ctx.toolchains["@rules_stark//:toolchain_type"]
+    stark_toolchain = ctx.toolchains["@rules_stark//stark:toolchain_type"]
 
     dir = ctx.actions.declare_directory(ctx.label.name)
 
@@ -43,14 +43,14 @@ stark_module = rule(
         ),
     },
     implementation = _stark_module_impl,
-    toolchains = ["@rules_stark//:toolchain_type"],
+    toolchains = ["@rules_stark//stark:toolchain_type"],
 )
 
 # stark_binary
 
 def _stark_binary_impl(ctx):
     # Load the toolchain.
-    stark_toolchain = ctx.toolchains["@rules_stark//:toolchain_type"]
+    stark_toolchain = ctx.toolchains["@rules_stark//stark:toolchain_type"]
 
     deps = ctx.attr.deps
 
@@ -80,14 +80,14 @@ stark_binary = rule(
         ),
     },
     implementation = _stark_binary_impl,
-    toolchains = ["@rules_stark//:toolchain_type"],
+    toolchains = ["@rules_stark//stark:toolchain_type"],
 )
 
 # stark_test
 
 def _stark_test_impl(ctx):
     # Load the toolchain.
-    stark_toolchain = ctx.toolchains["@rules_stark//:toolchain_type"]
+    stark_toolchain = ctx.toolchains["@rules_stark//stark:toolchain_type"]
 
     deps = ctx.attr.deps
 
@@ -120,6 +120,6 @@ stark_test = rule(
         ),
     },
     implementation = _stark_test_impl,
-    toolchains = ["@rules_stark//:toolchain_type"],
+    toolchains = ["@rules_stark//stark:toolchain_type"],
     test = True,
 )

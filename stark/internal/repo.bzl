@@ -56,7 +56,7 @@ stark_download = repository_rule(
             doc = "Host architecture for the Go distribution",
         ),
         "_build_tpl": attr.label(
-            default = "@rules_stark//internal:BUILD.dist.bazel.tpl",
+            default = "//stark/internal:BUILD.dist.bazel.tpl",
         ),
     },
     doc = "Downloads a standard Stark distribution and installs a build file",

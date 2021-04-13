@@ -5,17 +5,17 @@ Internal definitions may change without notice.
 """
 
 load(
-    "//internal:rules.bzl",
+    "//stark/internal:rules.bzl",
     _stark_binary = "stark_binary",
     _stark_module = "stark_module",
     _stark_test = "stark_test",
 )
 load(
-    "//internal:providers.bzl",
+    "//stark/internal:providers.bzl",
     _StarkModuleInfo = "StarkModuleInfo",
 )
 load(
-    "//internal:toolchain.bzl",
+    "//stark/internal:toolchain.bzl",
     _stark_toolchain = "stark_toolchain",
 )
 

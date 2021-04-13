@@ -1,7 +1,7 @@
 # This template is used by stark_download to generate a build file for
 # a downloaded Stark distribution.
 
-load("@rules_stark//:defs.bzl", "stark_toolchain")
+load("@rules_stark//stark:defs.bzl", "stark_toolchain")
 
 # tools contains executable files that are part of the toolchain.
 filegroup(
@@ -37,5 +37,5 @@ toolchain(
         {target_constraints},
     ],
     toolchain = ":toolchain_impl",
-    toolchain_type = "@rules_stark//:toolchain_type",
+    toolchain_type = "@rules_stark//stark:toolchain_type",
 )

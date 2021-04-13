@@ -1,7 +1,7 @@
 workspace(name = "rules_stark")
 
 load(
-    "@rules_stark//:deps.bzl", 
+    "@rules_stark//stark:deps.bzl", 
     "stark_rules_dependencies",
     "stark_download", 
 )
