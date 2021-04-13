@@ -64,7 +64,8 @@ def _stark_binary_impl(ctx):
         deps = [dep[StarkModuleInfo] for dep in deps],
     )
 
-    return [DefaultInfo(files = depset([executable]), executable = executable)]
+    runfiles = ctx.runfiles(files = [stark_toolchain.internal.static_runtime])
+    return [DefaultInfo(files = depset([executable]), executable = executable, runfiles = runfiles)]
 
 stark_binary = rule(
     doc = "Builds an executable program from Stark source code",

@@ -17,6 +17,7 @@ def starkc(ctx, srcs, out, deps = []):
         module_dirs.append(dep.dir)
 
     args = ctx.actions.args()
+    args.add("-r", stark_toolchain.internal.static_runtime)
     if len(deps) > 0:
         args.add_joined("-m", modules, join_with = ":")
     args.add("-o", out.path)
@@ -24,15 +25,10 @@ def starkc(ctx, srcs, out, deps = []):
 
     ctx.actions.run(
         executable = stark_toolchain.internal.compiler,
-        inputs = srcs + module_dirs,
+        inputs = srcs + module_dirs + [stark_toolchain.internal.static_runtime],
         outputs = [out],
         arguments = [args],
         mnemonic = "StarkC",
-        env = stark_toolchain.internal.env,
-        # Must disable sandbox to prevent relative path issues
-        execution_requirements = {
-            "no-sandbox": "1",
-        },
     )
 
 def starktest(ctx, srcs, out, deps = []):
