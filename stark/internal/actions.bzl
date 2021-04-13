@@ -8,7 +8,7 @@ def starkc(ctx, srcs, out, deps = []):
         deps: list of StarkModuleInfo objects for direct dependencies.
     """
 
-    stark_toolchain = ctx.toolchains["//stark:toolchain_type"]
+    stark_toolchain = ctx.toolchains["@rules_stark//stark:toolchain_type"]
 
     modules = []
     module_dirs = []
