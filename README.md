@@ -17,14 +17,13 @@ In order to setup a Stark project with Bazel, add the snippet below to your ``WO
 ```bzl
 workspace(name = "my-project")
 
-# Load rules from git repository
-# Note: this should be moved to http_archive when released
+# Load rules
 
-load("@bazel_tools//tools/build_defs/repo:git.bzl", "git_repository")
-git_repository(
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+http_archive(
     name = "rules_stark",
-    remote = "https://github.com/zippy1978/rules_stark.git",
-    branch = "main",
+    strip_prefix = "rules_stark-main",
+    urls = ["https://github.com/zippy1978/rules_stark/archive/refs/heads/main.zip"],
 )
 
 # Dependencies and Stark binary packages + tootchains registration
