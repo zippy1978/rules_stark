@@ -62,6 +62,7 @@ def _stark_binary_impl(ctx):
         srcs = ctx.files.srcs,
         out = executable,
         deps = [dep[StarkModuleInfo] for dep in deps],
+        linkopts = ctx.attr.linkopts,
     )
 
     runfiles = ctx.runfiles(files = [stark_toolchain.internal.static_runtime])
@@ -78,6 +79,9 @@ stark_binary = rule(
         "deps": attr.label_list(
             providers = [StarkModuleInfo],
             doc = "Direct dependencies of the binary",
+        ),
+        "linkopts": attr.string_list(
+            doc = "Additional linker options",
         ),
     },
     implementation = _stark_binary_impl,

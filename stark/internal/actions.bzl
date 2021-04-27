@@ -1,4 +1,4 @@
-def starkc(ctx, srcs, out, deps = []):
+def starkc(ctx, srcs, out, deps = [], linkopts = []):
     """starkc compilation from sources.
 
     Args:
@@ -20,6 +20,9 @@ def starkc(ctx, srcs, out, deps = []):
     args.add("-r", stark_toolchain.internal.static_runtime)
     if len(deps) > 0:
         args.add_joined("-m", modules, join_with = ":")
+    if len(linkopts) > 0:
+        linker = "cc:-lpthread " + " ".join([lo for lo in linkopts])
+        args.add("-l", linker)
     args.add("-o", out.path)
     args.add_all(srcs)
 
