@@ -59,6 +59,7 @@ def starktest(ctx, srcs, out, deps = []):
         module_path = module_path,
         srcs = " ".join([src.path for src in srcs]),
     )
+    
     ctx.actions.write(
         output = out,
         content = script,

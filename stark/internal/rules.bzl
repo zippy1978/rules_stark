@@ -6,7 +6,9 @@ def _stark_module_impl(ctx):
     # Load the toolchain.
     stark_toolchain = ctx.toolchains["@rules_stark//stark:toolchain_type"]
 
-    dir = ctx.actions.declare_directory(ctx.label.name)
+    # Modules are compiled to <target>.modules directory
+    dir_name = ".".join([ctx.label.name, "modules"])
+    dir = ctx.actions.declare_directory(dir_name)
 
     deps = ctx.attr.deps
 
