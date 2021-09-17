@@ -41,7 +41,6 @@ def _stark_toolchain_impl(ctx):
     if not runtime:
         fail("could not locate runtime (libstark.a)")
     env = {"STARK_RUNTIME": runtime.path}
-    
 
     # Return a TooclhainInfo provider. This is the object that rules get
     # when they ask for the toolchain.
