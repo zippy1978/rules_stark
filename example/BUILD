@@ -39,6 +39,5 @@ stark_binary(
     deps = [
         ":greetings",
         ":math",
-        ":math_bridge",
     ],
 )

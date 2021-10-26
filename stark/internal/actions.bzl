@@ -1,3 +1,5 @@
+load(":providers.bzl", "StarkModuleInfo")
+
 def starkc(ctx, srcs, out, deps = [], linkopts = []):
     """starkc compilation from sources.
 
@@ -15,6 +17,9 @@ def starkc(ctx, srcs, out, deps = [], linkopts = []):
     for dep in deps:
         modules.append(dep.dir.path)
         module_dirs.append(dep.dir)
+        for tdep in dep.deps.to_list():
+            modules.append(tdep.path)
+            module_dirs.append(tdep)
 
     args = ctx.actions.args()
     args.add("-r", stark_toolchain.internal.static_runtime)
