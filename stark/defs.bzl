@@ -8,6 +8,7 @@ load(
     "//stark/internal:rules.bzl",
     _stark_binary = "stark_binary",
     _stark_module = "stark_module",
+    _stark_clang_module = "stark_clang_module",
     _stark_test = "stark_test",
 )
 load(
@@ -21,6 +22,7 @@ load(
 
 stark_binary = _stark_binary
 stark_module = _stark_module
+stark_clang_module = _stark_clang_module
 StarkModuleInfo = _StarkModuleInfo
 stark_toolchain = _stark_toolchain
 stark_test = _stark_test

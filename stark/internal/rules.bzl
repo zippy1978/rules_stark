@@ -1,5 +1,67 @@
 load(":providers.bzl", "StarkModuleInfo")
 
+# stark_clang_module
+
+def _stark_clang_module_impl(ctx):
+    # Modules are compiled to <target>.modules directory
+    dir_name = ".".join([ctx.label.name, "modules"])
+    dir = ctx.actions.declare_directory(dir_name)
+
+    srcs = ctx.files.srcs
+    hdr = ctx.file.hdr
+    opts = ctx.attr.opts
+
+    module_dir_name = "/".join([dir_name, ctx.label.name])
+    bc_file_name = "/".join([module_dir_name, ".".join([ctx.label.name, "bc"])])
+    bc_file = ctx.actions.declare_file(bc_file_name)
+    sth_file_name = "/".join([module_dir_name, ".".join([ctx.label.name, "sth"])])
+    sth_file = ctx.actions.declare_file(sth_file_name)
+
+    # mkdir command
+    mkdir_cmd = "mkdir -p {path}".format(path = module_dir_name)
+
+    # clang command
+    clang_cmd = "/usr/bin/clang -O3 -emit-llvm -c {opts} -o {bc_file_name} {srcs}".format(opts = " ".join([o for o in opts]), bc_file_name = bc_file.path, srcs = " ".join([src.path for src in srcs]))
+    
+    # copy header command
+    copy_hdr_cmd = "cp {source_hrd_file_name} {sth_file_name}".format(source_hrd_file_name = hdr.path, sth_file_name = sth_file.path)
+
+    ctx.actions.run_shell(
+        command = "{mkdir_cmd} && {clang_cmd} && {copy_hdr_cmd}".format(mkdir_cmd = mkdir_cmd, clang_cmd = clang_cmd, copy_hdr_cmd = copy_hdr_cmd),
+        inputs = srcs + [hdr],
+        outputs = [dir, bc_file, sth_file],
+    )
+
+    runfiles = ctx.runfiles(files = [dir])
+    return [
+        DefaultInfo(files = depset([dir]), runfiles = runfiles),
+        StarkModuleInfo(
+            dir = dir,
+            deps = depset(
+                direct = [],
+                transitive = [],
+            ),
+        ),
+    ]
+
+stark_clang_module = rule(
+    attrs = {
+        "srcs": attr.label_list(
+            allow_files = [".c", ".cpp", ".cc", ".h", ".hpp"],
+            doc = "Source files to compile",
+        ),
+        "hdr": attr.label(
+            allow_single_file = [".sth"],
+            doc = "Header for the module",
+        ),
+        "opts": attr.string_list(
+            doc = "Additional compiler options",
+        ),
+    },
+    implementation = _stark_clang_module_impl,
+    toolchains = ["@rules_stark//stark:toolchain_type"],
+)
+
 # stark_module
 
 def _stark_module_impl(ctx):

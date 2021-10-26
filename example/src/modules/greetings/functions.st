@@ -1,6 +1,6 @@
 module greetings
 
-func hello(name: string): void {
+func hello(name: string) {
     print("Hello ")
     print(name)
     println(" !")

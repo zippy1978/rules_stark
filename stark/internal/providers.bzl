@@ -10,7 +10,7 @@ StarkModuleInfo = provider(
 StarkToolchainInfo = provider(
     doc = "Contains information about a Stark toolchain",
     fields = {
-        "compile": """Function that compiles a Go package from sources.
+        "compile": """Function that compiles a Stark program or module package from sources.
         Args:
             ctx: analysis context.
             srcs: list of source Files to be compiled.

@@ -1,14 +1,16 @@
 module math
 
-func add(a: int, b: int): int {
-    return a + b
+import math_bridge
+
+func add(a: int, b: int) => int {
+    return c_add(a, b)
 }
 
-func sub(a: int, b: int): int {
+func sub(a: int, b: int) => int {
     return a - b
 }
 
-func pow(base: double ,power: int): double {
+func pow(base: double ,power: int) => double {
     
     if (power == 0) {
         return 1.0
